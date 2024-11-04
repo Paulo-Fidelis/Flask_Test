@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask</title>
+</head>
+<body>
+    <h1>CRUD Filmes</h1>
+    <form action="/criar" method="post">
+        <input type="text" name="nome" placeholder="Digite o nome do filme" required>
+        <input type="text" name="autor" placeholder="Digite o nome do seu autor" required>
+        <input type="text" name="descricao" placeholder="Digite uma breve descrição do filme" required>
+        <input type="submit" value="Inserir">
+    </form>
+   
+    <hr>
+   <h2>Atualizar Filme:</h2>
+    <form action="/alterar" method="post">
+        <input type="text" name="nome_antigo" placeholder="nome do filme que deve ser mudado"
+        required>
+        <input type="text" name="nome_novo" placeholder="Novo nome"
+        required>
+        <input type="text" name="autor_novo" placeholder="novo autor"
+        required>
+        <input type="text" name="desc_nova" placeholder="nova descrição"
+        required>
+        <input type="submit" value="Alterar">
+    </form>
+    <hr>
+    <h2>Excluir filme do catalogo:</h2>
+    <form action="/deletar" method="post">
+        <input type="text" name="nome_delete" placeholder="Nome do filme"
+        required>
+        <input type="submit" value="Apagar">
+    </form>
+    <hr>
+    {% if catalogo|length > 0: %}
+    <h2>Catalogo de Filmes:</h2>
+    <ul>
+        {% for filme in catalogo %}
+            <li>Nome: {{ filme.getNome() }}</li>
+            <li>Autor: {{ filme.getAutor() }}</li>
+            <li>Descrição: {{ filme.getDesc() }}</li>
+            <br>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+</html>
