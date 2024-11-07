@@ -3,48 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flask</title>
+    <title>CRUD Filmes</title>
+    <!-- Link para o CSS do Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-<body>
-    <h1>CRUD Filmes</h1>
-    <form action="/criar" method="post">
-        <input type="text" name="nome" placeholder="Digite o nome do filme" required>
-        <input type="text" name="autor" placeholder="Digite o nome do seu autor" required>
-        <input type="text" name="descricao" placeholder="Digite uma breve descrição do filme" required>
-        <input type="submit" value="Inserir">
+<body class="container mt-4">
+    <h1 class="text-center mb-4">CRUD Filmes</h1>
+    
+    <!-- Formulário de criação -->
+    <form action="/criar" method="post" class="mb-4">
+        <div class="form-group">
+            <input type="text" name="nome" class="form-control" placeholder="Digite o nome do filme" required>
+        </div>
+        <div class="form-group">
+            <input type="text" name="autor" class="form-control" placeholder="Digite o nome do autor" required>
+        </div>
+        <div class="form-group">
+            <input type="text" name="descricao" class="form-control" placeholder="Digite uma breve descrição do filme" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Inserir</button>
     </form>
-   
+
     <hr>
-   <h2>Atualizar Filme:</h2>
-    <form action="/alterar" method="post">
-        <input type="text" name="nome_antigo" placeholder="nome do filme que deve ser mudado"
-        required>
-        <input type="text" name="nome_novo" placeholder="Novo nome"
-        required>
-        <input type="text" name="autor_novo" placeholder="novo autor"
-        required>
-        <input type="text" name="desc_nova" placeholder="nova descrição"
-        required>
-        <input type="submit" value="Alterar">
+
+    <!-- Formulário de atualização -->
+    <h2>Atualizar Filme</h2>
+    <form action="/alterar" method="post" class="mb-4">
+        <div class="form-group">
+            <input type="text" name="nome_antigo" class="form-control" placeholder="Nome do filme que deve ser mudado" required>
+        </div>
+        <div class="form-group">
+            <input type="text" name="nome_novo" class="form-control" placeholder="Novo nome" required>
+        </div>
+        <div class="form-group">
+            <input type="text" name="autor_novo" class="form-control" placeholder="Novo autor" required>
+        </div>
+        <div class="form-group">
+            <input type="text" name="desc_nova" class="form-control" placeholder="Nova descrição" required>
+        </div>
+        <button type="submit" class="btn btn-warning">Alterar</button>
     </form>
+
     <hr>
-    <h2>Excluir filme do catalogo:</h2>
-    <form action="/deletar" method="post">
-        <input type="text" name="nome_delete" placeholder="Nome do filme"
-        required>
-        <input type="submit" value="Apagar">
+
+    <!-- Formulário de exclusão -->
+    <h2>Excluir Filme do Catálogo</h2>
+    <form action="/deletar" method="post" class="mb-4">
+        <div class="form-group">
+            <input type="text" name="nome_delete" class="form-control" placeholder="Nome do filme" required>
+        </div>
+        <button type="submit" class="btn btn-danger">Apagar</button>
     </form>
+
     <hr>
-    {% if catalogo|length > 0: %}
-    <h2>Catalogo de Filmes:</h2>
-    <ul>
-        {% for filme in catalogo %}
-            <li>Nome: {{ filme.getNome() }}</li>
-            <li>Autor: {{ filme.getAutor() }}</li>
-            <li>Descrição: {{ filme.getDesc() }}</li>
-            <br>
-        {% endfor %}
-    </ul>
+
+    <!-- Catálogo de filmes -->
+        {% if bundamelada |length > 0 %}
+        <h2>Catálogo de Filmes:</h2>
+        <ul class="list-group">
+            {% for filme in bundamelada %}
+                <li class="list-group-item">
+                    <strong>Nome:</strong> {{ filme['nome'] }}<br>
+                    <strong>Autor:</strong> {{ filme['autor'] }}<br>
+                    <strong>Descrição:</strong> {{ filme['descricao'] }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="text-muted">Nenhum filme encontrado no catálogo.</p>
     {% endif %}
 </body>
 </html>

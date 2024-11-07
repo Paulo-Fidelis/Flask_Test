@@ -3,6 +3,7 @@ import sqlite3
 
 app = Flask(__name__)
 
+bundamelada=[]
 
 database = 'database.db'
 
@@ -22,10 +23,19 @@ def init_db():
             db.cursor().executescript(script)
         db.commit()
 
+def get_catalogo():
+    db = getDb()
+    cursor = db.cursor()
+    cursor.execute('SELECT * FROM filme')
+    catalogo = cursor.fetchall()
+    db.close()
+    return catalogo
+
 # iniciador do flask, renderizando o Index
 @app.route('/')
 def home():
-    return render_template('index.html')
+    catalogo = get_catalogo()  # Carrega todos os filmes
+    return render_template('index.html', bundamelada=catalogo)
 
 #rota do flask que faz as inserções no banco de dados
 @app.route('/criar', methods=['POST']) #nao sei oq post, ou get faz, quando um nao da certo, eu testo o outro
